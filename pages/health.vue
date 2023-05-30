@@ -5,9 +5,8 @@
 
             <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
                 <h2 class="text-2xl leading-7 font-semibold">
-                    Welcome to Kasette, your Data Platform.
+                  Health!!!
                 </h2>
-                <pre>{{ data }}</pre>
                 <p class="mt-3 text-gray-600">
                     More stuff
                 </p>
@@ -19,10 +18,10 @@
     </div>
 </template>
 
-<script setup>
-
-const { data } = await useFetch('/api/hello')
-
+<script>
+export default {
+    name: "Health"
+}
 </script>
 
 <style scoped>

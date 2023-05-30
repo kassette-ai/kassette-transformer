@@ -43,3 +43,13 @@
 </template>
 <script setup lang="ts">
 </script>
+
+<script>
+export default {
+    name: "TopNav"
+}
+</script>
+
+<style scoped>
+
+</style>

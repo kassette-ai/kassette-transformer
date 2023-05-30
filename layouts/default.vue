@@ -2,17 +2,16 @@
     <div>
         <TopNav/>
         <Sidebar/>
-        <Nuxt />
+        <slot />
     </div>
 </template>
 
 <script>
-import TopNav from "~/components/TopNav.vue"
-import Sidebar from "~/components/Sidebar.vue"
-export default{
-    components: {
-        TopNav,
-        Sidebar
-    }
-}
+
+import {defineComponent} from "vue";
+import {Sidebar, TopNav} from "components";
+
+export default defineComponent({
+    components: {Sidebar, TopNav}
+})
 </script>
