@@ -3,13 +3,13 @@ FROM node:20-alpine as builder
 RUN mkdir -p /usr/src/
 COPY . /usr/src/
 WORKDIR /usr/src/
-RUN npm install
+RUN npx build
 
 FROM node:20-alpine
 RUN mkdir -p /usr/src/
-COPY --from=builder /usr/src/ /usr/
-WORKDIR /usr/src/
+COPY --from=builder /usr/src/.output /usr/local/kassette-transformer
+WORKDIR /usr/local/kassette-transformer
 
-CMD ["npm run"]  
+CMD ["node server/index.mjs"]
 
 
