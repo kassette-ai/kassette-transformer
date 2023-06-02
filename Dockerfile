@@ -3,7 +3,8 @@ FROM node:20-alpine as builder
 RUN mkdir -p /usr/src/
 COPY . /usr/src/
 WORKDIR /usr/src/
-RUN npx build
+RUN npm install
+RUN npx nuxi build
 
 FROM node:20-alpine
 RUN mkdir -p /usr/src/
