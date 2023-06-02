@@ -20,3 +20,7 @@ jobs:
       run: ls -la 
     - name: current dir
       run: pwd
+    - name: Build docker image for kassete-transformer
+      run:  docker build . --file Dockerfile --tag ${{ env.UI_IMAGE_NAME }}:latest
+    - name: docker push agent
+      run: docker push ${{ env.UI_IMAGE_NAME }}:latest
