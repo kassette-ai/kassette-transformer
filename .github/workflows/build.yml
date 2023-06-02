@@ -1,0 +1,23 @@
+name: node compile
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  UI_IMAGE_NAME: metaops/kassette-transformer
+
+
+
+jobs:
+  build:
+    runs-on: self-hosted  
+    steps:
+    - uses: actions/checkout@v3
+    - name: issue npx build
+      uses: mikeal/npx@master
+      with:
+        args: build
+    
