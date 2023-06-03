@@ -11,6 +11,6 @@ RUN mkdir -p /usr/src/
 COPY --from=builder /usr/src/.output /usr/local/kassette-transformer
 WORKDIR /usr/local/kassette-transformer
 
-CMD ["node server/index.mjs"]
+ENTRYPOINT ["node", "server/index.mjs"]
 
 
