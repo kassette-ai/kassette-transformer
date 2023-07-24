@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  kassette-transformer:
+    image: node:16.20.1
+    command: /bin/bash -c "cd /usr/src && rm -rf .nuxt .output && npm install && npm run build && node .output/server/index.mjs"
+    volumes:
+      - .:/usr/src
+    ports:
+      - 3000:3000
