@@ -91,17 +91,7 @@
     </div>
 </template>
 
-<script>
-import Analytics from 'analytics'
 
-
-/* Identify a visitor */
-Analytics.identify('user-id-xyz', {
-    firstName: 'bill',
-    lastName: 'murray',
-    email: 'da-coolest@aol.com'
-});
-</script>
 
 <script setup>
 const { data, pending, error, refresh } = await useFetch('http://127.0.0.1:8088/config',)
