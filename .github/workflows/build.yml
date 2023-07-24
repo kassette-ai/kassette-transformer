@@ -1,10 +1,6 @@
 name: node compile
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: workflow_dispatch
 
 env:
   UI_IMAGE_NAME: metaops/kassette-transformer
