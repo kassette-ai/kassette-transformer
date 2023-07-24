@@ -1,16 +1,18 @@
-FROM node:20-alpine as builder
+FROM node:19.9.0-alpine3.18 as builder
+
+ENV SHELL=sh
+ENV ENV=prd
 
 RUN mkdir -p /usr/src/
 COPY . /usr/src/
 WORKDIR /usr/src/
+RUN rm -rf node_modules/ .nuxt .output
+
+RUN yarn install
 RUN npm install
-RUN npx nuxi build
+RUN wget -qO- https://get.pnpm.io/install.sh | sh -
+RUN source prd && pnpm install
 
-FROM node:20-alpine
-RUN mkdir -p /usr/src/
-COPY --from=builder /usr/src/.output /usr/local/kassette-transformer
-WORKDIR /usr/local/kassette-transformer
-
-ENTRYPOINT ["node", "server/index.mjs"]
+ENTRYPOINT ["npm", "run", "dev"]
 
 

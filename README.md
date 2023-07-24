@@ -33,6 +33,15 @@ Build the application for production:
 npm run build
 ```
 
+### Releasing
+
+We will use git tags to track the versions 
+```
+git tag -a v1.0.0 -m "First tagged release of the kassette-server"
+git push --tags
+```
+
+
 Locally preview production build:
 
 ```bash
