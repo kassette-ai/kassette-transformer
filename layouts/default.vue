@@ -11,7 +11,7 @@
 import {defineComponent} from "vue";
 import {Sidebar, TopNav} from "components";
 
-export default defineComponent({
-    components: {Sidebar, TopNav}
-})
+// export default defineComponent({
+//     components: {Sidebar, TopNav}
+// })
 </script>
