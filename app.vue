@@ -9,4 +9,5 @@
 
 import Index from "~/pages/index.vue";
 import '@/assets/css/tailwind.css'
+import analytics from "~/analytics";
 </script>
