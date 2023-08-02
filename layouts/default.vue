@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="flex flex-row">
         <Sidebar/>
-        <slot name="content"/>
+        <div class="px-12 py-6">
+            <slot name="content"/>
+        </div>
     </div>
 </template>
 

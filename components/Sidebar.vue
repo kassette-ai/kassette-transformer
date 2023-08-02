@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+import { markRaw } from "vue";
 import LogoHeader from "./LogoHeader.vue";
 import NavItem from "./NavItem.vue";
 import DirectoryIcon from "./icons/DirectoryIcon.vue";
@@ -29,38 +30,53 @@ export default {
                 {
                     id: 1,
                     title: 'Directory',
-                    href: '/directory',
-                    icon: DirectoryIcon,
+                    href: {
+                        path: '/directory',
+                        query: {
+                            tab: 'sources',
+                        }
+                    },
+                    icon: markRaw(DirectoryIcon),
                 },
                 {
                     id: 2,
                     title: 'Connections',
-                    href: '/connections',
-                    icon: ConnectionsIcon,
+                    href: {
+                        path: '/connections',
+                    },
+                    icon: markRaw(ConnectionsIcon),
                 },
                 {
                     id: 3,
                     title: 'Sources',
-                    href: '/sources',
-                    icon: SourcesIcon,
+                    href: {
+                        path: '/sources',
+                    },
+                    icon: markRaw(SourcesIcon),
                 },
                 {
                     id: 4,
                     title: 'Destinations',
-                    href: '/destinations',
-                    icon: DestinationsIcon,
+                    href: {
+                        path: '/destinations',
+                    },
+                    icon: markRaw(DestinationsIcon),
                 },
                 {
                     id: 5,
                     title: 'Transform',
-                    href: '/transform',
-                    icon: TransformIcon,
+                    href: {
+                        path: '/transform',
+                    },
+                    icon: markRaw(TransformIcon),
                 },
                 {
                     id: 6,
                     title: 'Health',
-                    href: '/health',
-                    icon: HealthIcon,
+                    href: {
+                        path: '/health',
+                    },
+                    icon: markRaw(HealthIcon),
                 },
             ]
         }
@@ -80,7 +96,7 @@ export default {
     created() {
         const currentPath = this.$route.path;
         for (const item of this.navItems) {
-            if (item.href == currentPath) {
+            if (item.href.path == currentPath) {
                 item.selected = true;
             }
         }
@@ -91,6 +107,6 @@ export default {
 <style scoped>
 .sidebar-wrapper {
     width: 364px;
-    border-color: #c3c3c3;
+    border-color: #9F9F9F;
 }
 </style>
