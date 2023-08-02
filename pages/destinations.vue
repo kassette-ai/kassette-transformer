@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout>
       <template #content>
-        <p class="text-3xl font-bold tracking-wide mb-8">Health</p>
+        <p class="text-3xl font-bold tracking-wide mb-8">Destinations</p>
       </template>
     </NuxtLayout>
   </template>

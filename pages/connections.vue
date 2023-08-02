@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout>
     <template #content>
-      <div>Connections</div>
+      <p class="text-3xl font-bold tracking-wide mb-8">Connections</p>
     </template>
   </NuxtLayout>
 </template>
