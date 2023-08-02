@@ -1,13 +1,13 @@
 <template>
-  Connections
+  <NuxtLayout>
+    <template #content>
+      <div>Connections</div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script>
-export default {
-    name: "connections.vue"
-}
 </script>
 
 <style scoped>
-
 </style>

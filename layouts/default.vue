@@ -1,17 +1,10 @@
 <template>
     <div>
-        <TopNav/>
         <Sidebar/>
-        <slot />
+        <slot name="content"/>
     </div>
 </template>
 
 <script>
-
-import {defineComponent} from "vue";
-import {Sidebar, TopNav} from "components";
-
-// export default defineComponent({
-//     components: {Sidebar, TopNav}
-// })
+import { Sidebar } from "components";
 </script>
