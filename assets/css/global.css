@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Inter";
+    src: url('../font-family/Inter/Inter-Regular.ttf') format('truetype');
+}
+
+p, button {
+    font-family: "Inter";
+    color: #3F3F3D;
+}

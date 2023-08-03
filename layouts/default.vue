@@ -1,17 +1,12 @@
 <template>
-    <div>
-        <TopNav/>
+    <div class="flex flex-row">
         <Sidebar/>
-        <slot />
+        <div class="px-12 py-6 w-full">
+            <slot name="content"/>
+        </div>
     </div>
 </template>
 
 <script>
-
-import {defineComponent} from "vue";
-import {Sidebar, TopNav} from "components";
-
-// export default defineComponent({
-//     components: {Sidebar, TopNav}
-// })
+import { Sidebar } from "components";
 </script>
