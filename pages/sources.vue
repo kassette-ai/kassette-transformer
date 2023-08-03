@@ -12,7 +12,10 @@
                 <div class="flex flex-col">
                     <template v-for="connection of srcConnections" :key="connection.id">
                         <div class="mb-8">
-                            <ConnectionGroup :data="connection"/>
+                            <ConnectionGroup
+                                :data="connection"
+                                :srcToDest="true"
+                            />
                         </div>
                     </template>
                 </div>

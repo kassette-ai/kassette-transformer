@@ -16,12 +16,12 @@
             <div class="w-8/12 flex flex-col py-2 px-4 border border-[#D9D9D9] rounded-lg">
                 <div class="connected-instances flex mb-1">
                     <img
-                        v-for="dest of data.destinations"
-                        :key="dest.id"
-                        :src="dest.image"
+                        v-for="instance of connectedInstances"
+                        :key="instance.id"
+                        :src="instance.image"
                     >
                 </div>
-                <p class="text-xs text-[#9F9F9F]">Destinations</p>
+                <p class="text-xs text-[#9F9F9F]">{{ instanceType }}</p>
             </div>
             <EditButton size="lg" />
         </div>
@@ -32,8 +32,26 @@ import EditButton from "@/components/EditButton.vue";
 import EnableFlag from "@/components/EnableFlag.vue";
 export default {
     components: {EditButton, EnableFlag},
-    props: ["data"],
+    props: ["data", "srcToDest", "destToSrc"],
     name: 'ConnectionGroup',
+    computed: {
+        connectedInstances() {
+            if (this.srcToDest != undefined) {
+                return this.data.destinations;
+            }
+            else if (this.destToSrc != undefined) {
+                return this.data.sources;
+            }
+        },
+        instanceType() {
+            if (this.srcToDest != undefined) {
+                return "destinations";
+            }
+            else if (this.destToSrc != undefined) {
+                return "sources";
+            }
+        }
+    }
 }
 </script>
 <style scoped>
