@@ -53,9 +53,9 @@ export default {
               },
               {
                   id: 2,
-                  name: 'Customer Event Queue',
-                  image: 'amqp.png',
-                  source_name: 'AMQP',
+                  name: 'Performance Dashboard',
+                  image: 'servicenow.png',
+                  source_name: 'ServiceNow',
                   enabled: true,
                   sources: [
                       {
