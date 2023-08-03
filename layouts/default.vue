@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row">
         <Sidebar/>
-        <div class="px-12 py-6">
+        <div class="px-12 py-6 w-full">
             <slot name="content"/>
         </div>
     </div>

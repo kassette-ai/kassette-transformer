@@ -106,7 +106,7 @@ export default {
 </script>
 <style scoped>
 .sidebar-wrapper {
-    width: 364px;
+    width: 400px;
     border-color: #9F9F9F;
 }
 </style>
