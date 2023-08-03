@@ -96,7 +96,7 @@ export default {
     created() {
         const currentPath = this.$route.path;
         for (const item of this.navItems) {
-            if (item.href.path == currentPath) {
+            if (currentPath.startsWith(item.href.path)) {
                 item.selected = true;
             }
         }
