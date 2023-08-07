@@ -171,13 +171,27 @@ export default {
                     return;
                 }
             }
+            console.log(this.value.icon);
             const res = await CreateNewServiceCatalogue(this.value);
+            if (res.success) {
+                alert("Successfully Added!");
+                this.$router.push(`/directory?tab=${this.catalogueTab()}`);
+            } else {
+                alert("Failed!");
+            }
         },
         catalogueType() {
             if (this.$route.query.type == 'dest') {
                 return 'Destination';
             } else if(this.$route.query.type == 'src') {
                 return 'Source';
+            }
+        },
+        catalogueTab() {
+            if (this.$route.query.type == 'src') {
+                return 'sources';
+            } else if(this.$route.query.type == 'dest') {
+                return 'destinations';
             }
         }
     },
