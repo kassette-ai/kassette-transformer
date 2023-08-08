@@ -7,17 +7,24 @@ const CreateNewServiceCatalogue = async (payload) => {
         }
       })
       .then((res) => res.data)
-      .catch((err) => {throw err;})
+      .catch((err) => {throw err;});
 }
 
 const GetServiceCatalogue = async (type) => {
   const queryType = type == 'sources' ? 'src' : 'dest';
   return Axios.get(`/service-catalogue?type=${queryType}`, {})
     .then((res) => res.data)
-    .catch((err) => {throw err;})
+    .catch((err) => {throw err;});
+}
+
+const GetServiceCatalogueByID = async (id) => {
+  return Axios.get(`/service-catalogue/${id}`, {})
+    .then((res) => res.data)
+    .catch((err) => {throw err;});
 }
 
 export {
     CreateNewServiceCatalogue,
     GetServiceCatalogue,
+    GetServiceCatalogueByID,
 }

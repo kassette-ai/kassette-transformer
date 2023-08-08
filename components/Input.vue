@@ -21,13 +21,19 @@
 export default {
     name: "Input",
     props: ['class', 'size', 'type', 'disabled', 'value', 'textfield', 'keyID', 'validate'],
-    emit: ['onChange'],
+    emits: ['onChange'],
     methods: {
         onChange(e) {
+            let value;
             if (this.type == "file") {
-                this.$emit("onChange", this.keyID, e.target.files[0]);
+                value = e.target.files[0];
             } else {
-                this.$emit("onChange", this.keyID, e.target.value);
+                value = e.target.value;
+            }
+            if (this.keyID == undefined) {
+                this.$emit("onChange", value);
+            } else {
+                this.$emit("onChange", this.keyID, value);
             }
         }
     },
@@ -37,7 +43,7 @@ export default {
         },
         classnames() {
             const size = this.size == undefined ? 'xs' : this.size;
-            const baseclass = this.validate ? 'border border-[#3F3F3D] text-[#3F3F3D]' : 'border border-red-500';
+            const baseclass = (this.validate === false) ? 'border border-red-500' : 'border border-[#3F3F3D] text-[#3F3F3D]';
             let sizeclass;
             if (size == 'xs') {
                 sizeclass = 'p-2 text-xs rounded-xs tracking-normal';
@@ -48,7 +54,7 @@ export default {
             } else if(size == 'xl') {
                 sizeclass = 'p-4 text-xl rounded-xl tracking-widest';
             }
-            return baseclass + ' ' + sizeclass + (this.class == undefined ? "" : this.class);
+            return baseclass + ' ' + sizeclass + ' ' + (this.class == undefined ? "" : this.class);
         }
     }
 }

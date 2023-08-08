@@ -1,9 +1,16 @@
 <template>
-    <p :class="classnames">Edit</p>
+    <p
+        :class="classnames"
+        @click="handleClick"
+    >
+        {{ title }}
+    </p>
 </template>
 <script>
 export default {
-    props: ["size"],
+    name: 'EditButton',
+    props: ["size", "title"],
+    emits: ["click"],
     computed: {
         classnames() {
             const basenames = "font-bold underline underline-offset-2 edit-button";
@@ -11,9 +18,20 @@ export default {
                 return basenames + " text-xs";
             }
             return basenames + " text-" + this.size;
+        },
+        title() {
+            if (this.title == undefined) {
+                return "Edit";
+            } else {
+                return this.title;
+            } 
         }
     },
-    name: 'EditButton',
+    methods: {
+        handleClick() {
+            this.$emit("click");
+        }
+    }
 }
 </script>
 <style scoped>

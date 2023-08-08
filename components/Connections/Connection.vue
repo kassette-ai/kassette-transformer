@@ -4,7 +4,7 @@
             <ConnectionInstanceItem :data="data.source"/>
         </div>
         <div class="w-2/12 relative">
-            <img src="public/RightArrowIcon.png" class="w-full"/>
+            <img src="RightArrowIcon.png" class="w-full"/>
             <div class="absolute left-[-16px] top-[-1px] h-full flex items-center bg-white">
                 <PlusIcon />
             </div>

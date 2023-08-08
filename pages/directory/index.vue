@@ -5,8 +5,9 @@
             <div class="flex justify-between mb-8">
                 <div class="flex">
                     <template v-for="tab in tabs" :key="tab.id">
-                        <DirectoryTab
-                            :data="tab"    
+                        <Tab
+                            :data="tab"
+                            @onTabChange="handleTabChange"
                         />
                     </template>
                 </div>
@@ -19,11 +20,11 @@
     </NuxtLayout>
 </template>
 <script>
-import DirectoryTab from "@/components/Directory/Tab.vue"
+import Tab from "@/components/Tab.vue"
 import DirectoryContent from "@/components/Directory/Content.vue"
 import Button from "@/components/Button.vue";
 export default {
-    components: { DirectoryTab, DirectoryContent, Button },
+    components: { Tab, DirectoryContent, Button },
     name: 'Directory',
     data() {
         return {
@@ -63,6 +64,17 @@ export default {
         }
     },
     methods: {
+        handleTabChange(id) {
+            for (const tab of this.tabs) {
+                if (tab.id == id) {
+                    tab.selected = true;
+                    this.currentTab = tab.value;
+                } else {
+                    tab.selected = false;
+                }
+            }
+            this.$router.push(`/directory?tab=${this.currentTab}`);
+        },
         updateTab() {
             this.currentTab = this.$route.query.tab;
             for (const tab of this.tabs) {
@@ -73,9 +85,6 @@ export default {
                 }
             }
         }
-    },
-    updated() {
-        this.updateTab()
     },
     created() {
         this.updateTab()

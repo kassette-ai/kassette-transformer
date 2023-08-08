@@ -23,14 +23,14 @@ export default {
             id: 1,
             title: 'Customer Joining Workflow',
             source_name: 'Camunda',
-            enabled: true,
+            enabled: "enabled",
             image: 'camunda.png',
           },
           destination: {
             id: 1,
             title: 'ServiceNow Enterprise',
             source_name: 'ServiceNow',
-            enabled: true,
+            enabled: "enabled",
             image: 'servicenow.png',
           }
         }
