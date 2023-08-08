@@ -10,11 +10,12 @@
                     </NuxtLink>
                 </div>
                 <div class="flex flex-col">
-                    <template v-for="connection of srcConnections" :key="connection.id">
+                    <template v-for="connection of srcConnections" :key="connection.source.id">
                         <div class="mb-8">
                             <ConnectionGroup
                                 :data="connection"
                                 :srcToDest="true"
+                                @onDelete="handleDeleteChange"
                             />
                         </div>
                     </template>
@@ -26,63 +27,23 @@
 <script>
 import ConnectionGroup from "@/components/ConnectionGroup.vue";
 import Button from "@/components/Button.vue";
+import { FetchAllSources } from "@/apis/source";
 export default {
-    data() {
-        return {
-            srcConnections: [
-                {
-                    id: 1,
-                    name: 'Customer Joining Workflow',
-                    image: 'camunda.png',
-                    source_name: 'Camunda',
-                    enabled: true,
-                    destinations: [
-                        {
-                            id: 1,
-                            name: 'ServiceNow',
-                            image: 'servicenow.png',
-                            enabled: true,
-                        },
-                        {
-                            id: 2,
-                            name: 'PowerBI',
-                            image: 'powerbi.png',
-                            enabled: true,
-                        },
-                        {
-                            id: 3,
-                            name: 'Postgres',
-                            image: 'postgres.png',
-                            enabled: true,
-                        },
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Customer Event Queue',
-                    image: 'amqp.png',
-                    source_name: 'AMQP',
-                    enabled: true,
-                    destinations: [
-                        {
-                            id: 1,
-                            name: 'ServiceNow',
-                            image: 'servicenow.png',
-                            enabled: true,
-                        },
-                        {
-                            id: 2,
-                            name: 'PowerBI',
-                            image: 'powerbi.png',
-                            enabled: true,
-                        },
-                    ]
-                },
-            ]
+    name: 'sources',
+    components: { ConnectionGroup, Button },
+    methods: {
+        async handleDeleteChange() {
+            this.srcConnections = await FetchAllSources();
         }
     },
-    components: { ConnectionGroup, Button },
-    name: 'sources',
+    data() {
+        return {
+            srcConnections: [],
+        }
+    },
+    async created() {
+        this.srcConnections = await FetchAllSources();
+    }
 }
 </script>
 <style scoped>
