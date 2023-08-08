@@ -23,5 +23,5 @@ jobs:
     - name: add metaops helm repo
       run: helm repo add metaops https://metaops-solutions.github.io/helm-charts
     - name: install release
-      run: helm upgrade -i --wait --timeout 5m -n kassette-dev kassette-transformer metaops/kassette-transformer --set image.tag=$DOCKER_TAG
+      run: helm upgrade -i --wait --timeout 5m -n kassette-dev kassette-transformer metaops/kassette-transformer --set image.tag=$DOCKER_TAG,config.env.VITE_APP_BACKEND_BASE=http://kassette-server
 
