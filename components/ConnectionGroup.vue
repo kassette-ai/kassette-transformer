@@ -45,6 +45,7 @@ import EditButton from "@/components/EditButton.vue";
 import EnableFlag from "@/components/EnableFlag.vue";
 import Img from "@/components/Img.vue";
 import { DeleteSourceByID } from "@/apis/source";
+import { DeleteDestinationByID } from "@/apis/destination";
 export default {
     components: { EditButton, EnableFlag, Img },
     props: ["data", "srcToDest", "destToSrc"],
@@ -53,10 +54,10 @@ export default {
     computed: {
         fromInstance() {
             if (this.srcToDest != undefined) {
-                return this.data.source;
+                return this.data.source_detail.source;
             }
             else if (this.destToSrc != undefined) {
-                return this.data.destination;
+                return this.data.destination_detail.destination;
             }
         },
         editLink() {
@@ -68,14 +69,19 @@ export default {
             }
         },
         catalogue() {
-            return this.data.catalogue;
+            if (this.srcToDest != undefined) {
+                return this.data.source_detail.catalogue;
+            }
+            else if(this.destToSrc != undefined) {
+                return this.data.destination_detail.catalogue;
+            }
         },
         connectedInstances() {
             if (this.srcToDest != undefined) {
-                return this.data.destinations;
+                return this.data.destination_details;
             }
             else if (this.destToSrc != undefined) {
-                return this.data.sources;
+                return this.data.source_details;
             }
         },
         instanceType() {
@@ -100,6 +106,13 @@ export default {
                     }
                 }
                 else if (this.destToSrc != undefined) {
+                    const res = await DeleteDestinationByID(id);
+                    if (res.success) {
+                        alert("Successfully Removed!");
+                        this.$emit("onDelete");
+                    } else {
+                        alert("Deletion Failed!");
+                    }
                 }
             }
         }
