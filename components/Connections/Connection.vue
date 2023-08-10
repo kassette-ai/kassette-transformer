@@ -1,16 +1,22 @@
 <template>
     <div class="flex flex-row items-center w-10/12">
         <div class="w-5/12">
-            <ConnectionInstanceItem :data="data.source"/>
+            <ConnectionInstanceItem
+                :data="data.source"
+                type="source"
+            />
         </div>
         <div class="w-2/12 relative">
-            <img src="public/RightArrowIcon.png" class="w-full"/>
+            <img src="RightArrowIcon.png" class="w-full"/>
             <div class="absolute left-[-16px] top-[-1px] h-full flex items-center bg-white">
                 <PlusIcon />
             </div>
         </div>
         <div class="w-5/12">
-            <ConnectionInstanceItem :data="data.destination"/>
+            <ConnectionInstanceItem
+                :data="data.destination"
+                type="destination"
+            />
         </div>
     </div>
 </template>
