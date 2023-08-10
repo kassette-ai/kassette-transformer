@@ -7,7 +7,7 @@
             />
         </div>
         <div class="w-2/12 relative">
-            <img src="RightArrowIcon.png" class="w-full"/>
+            <img :src="RightArrowIcon" class="w-full"/>
             <div class="absolute left-[-16px] top-[-1px] h-full flex items-center bg-white">
                 <PlusIcon />
             </div>
@@ -23,6 +23,7 @@
 <script>
 import ConnectionInstanceItem from "./InstanceItem.vue";
 import PlusIcon from "@/components/icons/PlusIcon";
+import RightArrowIcon from "@/assets/icons/RightArrowIcon.png";
 export default {
     props: ["data"],
     name: "ConnectionInstance",
@@ -30,6 +31,11 @@ export default {
         ConnectionInstanceItem,
         PlusIcon,
     },
+    data() {
+        return {
+            RightArrowIcon: RightArrowIcon,
+        }
+    }
 }
 </script>
 <style scoped>
