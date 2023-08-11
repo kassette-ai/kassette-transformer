@@ -8,10 +8,18 @@
                 <Button title="New Connection" />
             </NuxtLink>
         </div>
-        <template v-for="connection of connections" :key="connection.id">
+        <template v-for="(connectionDetail, idx) of connections" :key="idx">
           <div class="mb-8">
-            <ConnectionInstance :data="connection"/>
+            <ConnectionInstance
+              :sourceDetail="connectionDetail.source_detail"
+              :destinationDetail="connectionDetail.destination_detail"
+              :connection="connectionDetail.connection"
+              @onDeleteConnection="handleConnectionDelete"
+            />
           </div>
+        </template>
+        <template v-if="connections.length == 0">
+          <p class="text-xl tracking-wide font-bold">No Available Connections</p>
         </template>
       </template>
     </NuxtLayout>
@@ -19,32 +27,23 @@
   <script>
   import ConnectionInstance from "@/components/Connections/Connection.vue";
   import Button from "@/components/Button.vue";
+  import { FetchAllConnections } from "@/apis/connection";
   export default {
+    name: 'Connections',
+    components: { ConnectionInstance },
     data() {
       return {
-        connections: [
-          {
-            id: 1,
-            source: {
-              id: 1,
-              name: 'Customer Joining Workflow',
-              catalogue_name: 'Camunda',
-              enabled: "enabled",
-              iconurl: 'camunda.png',
-            },
-            destination: {
-              id: 1,
-              name: 'ServiceNow Enterprise',
-              catalogue_name: 'ServiceNow',
-              enabled: "enabled",
-              iconurl: 'servicenow.png',
-            }
-          }
-        ]
+        connections: []
       }
     },
-    name: 'Connections',
-    components: { ConnectionInstance }
+    methods: {
+      async handleConnectionDelete() {
+        this.connections = await FetchAllConnections();
+      }
+    },
+    async created() {
+      this.connections = await FetchAllConnections();
+    }
   }
   </script>
   <style scoped>

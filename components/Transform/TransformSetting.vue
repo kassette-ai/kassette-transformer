@@ -37,6 +37,7 @@ import FieldMapping from "./FieldMapping";
 export default {
     name: "TransformSetting",
     components: { Button, FieldMapping },
+    props: ["defaultValue"],
     emits: ["onNext"],
     data() {
         return {
@@ -45,7 +46,6 @@ export default {
     },
     methods: {
         handleMapValueChange(index, keyID, value) {
-            console.log(index, keyID, value);
             this.mapdata[index][keyID] = value;
         },
         addNewFieldMapping() {
@@ -73,7 +73,22 @@ export default {
             this.mapdata = newMapData;
         },
         handleNext() {
-            this.$emit("onNext");
+            let validate = true;
+            for(const data of this.mapdata) {
+                if (data.mode == "edit") {
+                    validate = false;
+                }
+            }
+            if (validate) {
+                this.$emit("onNext", this.mapdata);
+            } else {
+                alert("Plesae finish the editing!");
+            }
+        }
+    },
+    created() {
+        if (this.defaultValue != undefined) {
+            this.mapdata = JSON.parse(this.defaultValue);
         }
     }
 }

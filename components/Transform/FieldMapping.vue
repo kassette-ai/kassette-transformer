@@ -8,6 +8,7 @@
                         keyID="from"
                         class="w-5/12 mr-8"
                         :value="data.from"
+                        :validate="validate.from"
                         @onChange="handleValueChange"
                     />
                     <Input
@@ -15,6 +16,7 @@
                         keyID="to"
                         class="w-5/12"
                         :value="data.to"
+                        :validate="validate.to"
                         @onChange="handleValueChange"
                     />
                 </template>
@@ -24,6 +26,7 @@
                         keyID="field"
                         class="w-5/12"
                         :value="data.field"
+                        :validate="validate.field"
                         @onChange="handleValueChange"
                     />
                 </template>
@@ -72,6 +75,15 @@ export default {
     props: ["data"],
     emits: ["onChange", "onDelete"],
     components: { Input, Button },
+    data() {
+        return {
+            validate: {
+                from: "",
+                to: "",
+                field: "",
+            }
+        }
+    },
     computed: {
         isEditMode() {
             return this.data.mode == "edit";
@@ -85,7 +97,33 @@ export default {
             this.$emit("onChange", keyID, value);
         },
         handleSave() {
-            this.$emit("onChange", "mode", "view");
+            let validate = true;
+            if (this.data.type == "field_map") {
+                if (this.data.from.length == 0) {
+                    this.validate.from = false;
+                    validate = false;
+                } else {
+                    this.validate.from = true;
+                }
+                if (this.data.to.length == 0) {
+                    this.validate.to = false;
+                    validate = false;
+                } else {
+                    this.validate.to = true;
+                }
+            }
+            else if (this.data.type == "field_hide") {
+                if (this.data.field.length == 0) {
+                    this.validate.field = false;
+                    validate = false;
+                } else {
+                    this.validate.field = true;
+                    validate = true;
+                }
+            }
+            if (validate) {
+                this.$emit("onChange", "mode", "view");
+            }
         },
         handleEdit() {
             this.$emit("onChange", "mode", "edit");

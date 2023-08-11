@@ -1,11 +1,12 @@
 <template>
-    <p class="text-xl tracking-wide font-bold mb-8">{{ GuideText }}</p>
-    <template v-for="instance of instances" :key="instance.id">
+    <p class="text-xl tracking-wide font-bold mb-8">{{ guideText }}</p>
+    <template v-for="item of instances" :key="item[detailKeyID][itemKeyID].id">
         <div class="mb-4 w-full">
             <InstanceItem
-                :data="instance"
+                :data="item[detailKeyID][itemKeyID]"
+                :catalogue="item[detailKeyID]['catalogue']"
                 :type="type"
-                :selected="instance.id == value"
+                :selected="item[detailKeyID][itemKeyID].id == value"
                 @onChange="handleSelectChange"
             />
         </div>
@@ -22,27 +23,38 @@ import Button from "@/components/Button";
 import InstanceItem from './InstanceItem.vue';
 export default {
     name: "InstanceSelect",
-    props: ["instances", "type"],
-    emits: ["onNext"],
+    props: ["instances", "type", "value"],
+    emits: ["onNext", "onChange"],
     components: { InstanceItem },
-    data() {
-        return {
-            value: -1,
-        }
-    },
     computed: {
-        GuideText() {
+        guideText() {
             if(this.type == "source") {
                 return "Select a source instance to create a connection";
             }
             else if(this.type == "destination") {
-                return "Select a destination instance to create a destinatino";
+                return "Select a destination instance to create a connection";
+            }
+        },
+        detailKeyID() {
+            if(this.type == "source") {
+                return "source_detail";
+            }
+            else if(this.type == "destination") {
+                return "destination_detail";
+            }
+        },
+        itemKeyID() {
+            if(this.type == "source") {
+                return "source";
+            }
+            else if(this.type == "destination") {
+                return "destination";
             }
         }
     },
     methods: {
         handleSelectChange(value) {
-            this.value = value;
+            this.$emit("onChange", value)
         },
         handleNext() {
             if(this.value == -1) {

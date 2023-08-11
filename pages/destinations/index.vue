@@ -19,6 +19,9 @@
                             />
                         </div>
                     </template>
+                    <template v-if="destConnections.length == 0">
+                        <p class="text-xl tracking-wide font-bold">No Available Destinations</p>
+                    </template>
                 </div>
             </div>
         </template>
