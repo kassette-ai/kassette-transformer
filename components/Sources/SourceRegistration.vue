@@ -47,7 +47,7 @@ export default {
             this.source = {
                 id: null,
                 name: "",
-                write_key: this.catalogue.name,
+                write_key: "",
                 config: "{}",
             }
         } else {
