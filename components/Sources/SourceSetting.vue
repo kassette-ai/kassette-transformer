@@ -81,7 +81,7 @@ export default {
                 this.source.service_id = this.catalogue.id;
                 const res = await CreateNewSource(this.source);
                 if (res.success) {
-                    alert("Successfully Added!");
+                    alert(`Successfully Added! You Write Key is ${res.write_key}`);
                     this.$router.push('/sources');
                 } else {
                     alert("Failed");

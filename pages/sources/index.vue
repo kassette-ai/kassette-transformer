@@ -19,6 +19,9 @@
                             />
                         </div>
                     </template>
+                    <template v-if="srcConnections.length == 0">
+                        <p class="text-xl tracking-wide font-bold">No Available Sources</p>
+                    </template>
                 </div>
             </div>
         </template>

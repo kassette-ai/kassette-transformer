@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar-wrapper h-screen border-solid border-0 border-r flex flex-col items-center">
+    <div class="sidebar-wrapper border-solid border-0 border-r flex flex-col items-center">
         <LogoHeader />
         <template v-for="item in navItems" :key="item.id">
             <NavItem
@@ -108,5 +108,7 @@ export default {
 .sidebar-wrapper {
     width: 400px;
     border-color: #9F9F9F;
+    min-height: 100vh;
+    height: auto;
 }
 </style>

@@ -3,7 +3,7 @@
         :class="classnames"
         @click="handleClick"
     >
-        {{ title }}
+        {{ buttonTitle }}
     </p>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
             }
             return basenames + " text-" + this.size;
         },
-        title() {
+        buttonTitle() {
             if (this.title == undefined) {
                 return "Edit";
             } else {
