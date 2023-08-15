@@ -3,26 +3,42 @@
         <p class="text-2xl tracking mb-8">
             Click <a :href="catalogue.url" target="_blank">{{ catalogue.name }} Installation Guide</a> to follow the installation guide.
         </p>
-        <p class="text-2xl tracking break-all mb-4">
-            CustomerID: {{ source.customer_id }}
-        </p>
-        <p class="text-2xl tracking break-all">
-            {{ writeKey }}
-        </p>
+        <template v-if="isNewSource || !isCustomerNameEmpty">    
+            <p class="text-2xl tracking break-all mb-4">
+                <span class="text-[#52B788]">CustomerName</span>: {{ source.customer_name }}
+            </p>
+            <p class="text-2xl tracking break-all">
+                <span class="text-[#52B788]">SecretKey</span>: {{ source.secret_key }}
+            </p>
+        </template>
+        <template v-else>
+            <Button
+                title="Generate New Credentials"
+                size="lg"
+                class="w-fit"
+                @onClick="handleClick"
+            />
+        </template>
     </div>
 </template>
 <script>
+import Button from "@/components/Button.vue";
 export default {
     name: "SetupScreen",
     props: ["catalogue", "source"],
+    emits: ["onNewCredentials"],
     computed: {
-        writeKey() {
-            if (this.source.write_key == null) {
-                return "You will get your write key once you finish the registration!";
-            } else {
-                return `WriteKey: ${ this.source.write_key }`;
-            }
+        isNewSource() {
+            return this.source.id == null;
         },
+        isCustomerNameEmpty() {
+            return this.source.customer_name.length == 0;
+        }
+    },
+    methods: {
+        handleClick() {
+            this.$emit("onNewCredentials");
+        }
     }
 }
 </script>

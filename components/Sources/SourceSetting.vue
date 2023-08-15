@@ -18,6 +18,7 @@
             v-if="currentTab == 'Setup'"
             :catalogue="catalogue"
             :source="source"
+            @onNewCredentials="generateNewCredentials"
         />
         <EventScreen
             v-if="currentTab == 'Events'"
@@ -38,6 +39,7 @@ import SetupScreen from "@/components/Sources/SetupScreen.vue";
 import EventScreen from "@/components/Sources/EventScreen.vue";
 import SettingScreen from "@/components/Sources/SettingScreen.vue";
 import { CreateNewSource, ModifySource } from "@/apis/source";
+import { generateRandomStringWithTimestamp, generateRandomString } from "@/utils";
 export default {
     name: "SourceSetting",
     props: ["source", "catalogue"],
@@ -76,12 +78,25 @@ export default {
         handleConfigChange(config) {
             this.source.config = config;
         },
+        generateNewCredentials() {
+            this.setCredentials();
+        },
+        setCredentials() {
+            const meaningful = `${this.catalogue.name}_Customer`;
+            if (meaningful.length >= 16) {
+                this.source.customer_name = meaningful.slice(0, 16);
+            }
+            else {
+                this.source.customer_name = meaningful + generateRandomString(16 - meaningful.length);
+            }
+            this.source.secret_key = generateRandomStringWithTimestamp(32);
+        },
         async handleNext() {
             if (this.source.id == null) {
                 this.source.service_id = this.catalogue.id;
                 const res = await CreateNewSource(this.source);
                 if (res.success) {
-                    alert(`Successfully Added! You Write Key is ${res.write_key}`);
+                    alert("Successfully Added!");
                     this.$router.push('/sources');
                 } else {
                     alert("Failed");
@@ -95,8 +110,13 @@ export default {
                     alert("Failed");
                 }
             }
+        },
+    },
+    created() {
+        if (this.source.id == null) {
+            this.setCredentials();
         }
-    }
+    },
 }
 </script>
 <style>
