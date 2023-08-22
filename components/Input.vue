@@ -13,6 +13,7 @@
             :disabled="disabled"
             :value="value"
             :type="type"
+            :placeholder="placeholder"
             @change="onChange"
         />
     </template>
@@ -20,7 +21,7 @@
 <script>
 export default {
     name: "Input",
-    props: ['class', 'size', 'type', 'disabled', 'value', 'textfield', 'keyID', 'validate'],
+    props: ['class', 'size', 'type', 'disabled', 'value', 'textfield', 'keyID', 'validate', 'placeholder'],
     emits: ['onChange'],
     methods: {
         onChange(e) {

@@ -20,8 +20,14 @@
         />
         <Button
             size="xs"
+            class="mr-4"
             title="New Field Hiding"
             @onClick="addNewFieldHiding"
+        />
+        <Button
+            size="xs"
+            title="New Field Deleting"
+            @onClick="addNewFieldDeleting"
         />
     </div>
     <Button
@@ -48,21 +54,6 @@ export default {
         handleMapValueChange(index, keyID, value) {
             this.mapdata[index][keyID] = value;
         },
-        addNewFieldMapping() {
-            this.mapdata.push({
-                from: "",
-                to: "",
-                mode: "edit",
-                type: "field_map",
-            })
-        },
-        addNewFieldHiding() {
-            this.mapdata.push({
-                field: "",
-                mode: "edit",
-                type: "field_hide",
-            })
-        },
         handleMapDataDelete(delIdx) {
             let newMapData = [];
             for(const index in this.mapdata) {
@@ -84,7 +75,29 @@ export default {
             } else {
                 alert("Plesae finish the editing!");
             }
-        }
+        },
+        addNewFieldMapping() {
+            this.mapdata.push({
+                from: "",
+                to: "",
+                mode: "edit",
+                type: "field_map",
+            })
+        },
+        addNewFieldHiding() {
+            this.mapdata.push({
+                field: "",
+                mode: "edit",
+                type: "field_hide",
+            })
+        },
+        addNewFieldDeleting() {
+            this.mapdata.push({
+                field: "",
+                mode: "edit",
+                type: "field_delete",
+            })
+        },
     },
     created() {
         if (this.defaultValue != undefined) {
