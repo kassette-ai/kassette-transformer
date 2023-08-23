@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row flex-wrap border border-[#3F3F3D] rounded-xl p-8">
         <template v-for="field of formFields">
-            <template v-if="field.type == 'text'">
+            <template v-if="['text', 'url', 'json'].includes(field.type)">
                 <InputGroup
                     size="lg"
                     class="mb-4 w-1/2 px-8"
@@ -9,6 +9,19 @@
                     :label="field.name"
                     :keyID="field.keyID"
                     :value="value[field.keyID]"
+                    :textfield="['json'].includes(field.type)"
+                    @onChange="handleValueChange"
+                    :validate="this.validate[field.keyID]"
+                />
+            </template>
+            <template v-else-if="field.type == 'method'">
+                <SelectGroup
+                    size="lg"
+                    class="mb-4 w-1/2 px-8"
+                    :label="field.name"
+                    :keyID="field.keyID"
+                    :value="value[field.keyID]"
+                    :options="methodOptions"
                     @onChange="handleValueChange"
                     :validate="this.validate[field.keyID]"
                 />
@@ -27,9 +40,11 @@
 </template>
 <script>
 import InputGroup from '@/components/InputGroup.vue';
+import SelectGroup from '@/components/SelectGroup.vue';
 import Button from "@/components/Button.vue";
 export default {
     name: "SettingScreen",
+    components: { InputGroup, SelectGroup, Button},
     props: ["destination", "catalogue"],
     emits: ["onChange", "onNext"],
     data() {
@@ -37,6 +52,28 @@ export default {
             formFields: [],
             value: {},
             validate: {},
+            methodOptions: [
+                {
+                    "value": "GET",
+                    "name": "Get",
+                },
+                {
+                    "value": "POST",
+                    "name": "Post",
+                },
+                {
+                    "value": "DELETE",
+                    "name": "Delete",
+                },
+                {
+                    "value": "PATCH",
+                    "name": "Patch",
+                },
+                {
+                    "value": "PUT",
+                    "name": "Put",
+                },
+            ]
         }
     },
     methods: {
@@ -55,12 +92,28 @@ export default {
                         break;
                     }
                 }
-                if (type == 'text') {
+                if (['text', 'method'].includes(type)) {
                     if (val.length > 0) {
                         this.validate[keyID] = true;
                     } else {
                         this.validate[keyID] = false;
-                        passed =false;
+                        passed = false;
+                    }
+                }
+                else if (type == 'url') {
+                    const urlReg = /^(http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(\/\S*)?$/
+                    this.validate[keyID] = urlReg.test(val);
+                    if (!this.validate[keyID]) {
+                        passed = false;
+                    }
+                }
+                else if (type == 'json') {
+                    try {
+                        JSON.parse(val);
+                        this.validate[keyID] = true;
+                    } catch (e) {
+                        this.validate[keyID] = false;
+                        passed = false;
                     }
                 }
             }
@@ -75,7 +128,12 @@ export default {
         for (const field of formFields) {
             const configValue = configData[field.keyID];
             if (configValue == undefined) {
-                this.value[field.keyID] = "";
+                if (field.type == 'json') {
+                    this.value[field.keyID] = "{}"
+                }
+                else {
+                    this.value[field.keyID] = "";
+                }
             } else {
                 this.value[field.keyID] = configValue;
             }

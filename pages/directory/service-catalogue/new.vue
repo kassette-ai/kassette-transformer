@@ -63,7 +63,7 @@
                             :value="value.notes"
                             :validate="validate.notes"
                             @onChange="handleValueChange"
-                            textfield
+                            :textfield="true"
                         />
                         <InputGroup
                             size="lg"
@@ -73,7 +73,7 @@
                             :value="value.metadata"
                             :validate="validate.metadata"
                             @onChange="handleValueChange"
-                            textfield
+                            :textfield="true"
                         />
                         <InputGroup
                             size="lg"

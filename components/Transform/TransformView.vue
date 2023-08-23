@@ -5,8 +5,11 @@
             <p class="text-lg tracking-wide w-2/12 justify-center flex"> -> </p>
             <p class="text-lg tracking-wide w-3/12 justify-center flex font-bold">{{ data.to }}</p>
         </template>
-        <template v-else>
-            <p class="text-lg tracking-wide w-8/12 justify-center items-center flex font-bold">{{ data.field }} <span class="text-xs ml-2">WILL BE HIDED</span></p>
+        <template v-else-if="isHiding">
+            <p class="text-lg tracking-wide w-8/12 justify-center items-center flex font-bold text-center">{{ data.field }} <span class="text-xs ml-2">WILL BE HIDED</span></p>
+        </template>
+        <template v-else-if="isDeleting">
+            <p class="text-lg tracking-wide w-8/12 justify-center items-center flex font-bold text-center">Record with the value of {{ data.value}} in {{ data.field }} field WILL BE DELETED</p>
         </template>
     </div>
 </template>
@@ -17,6 +20,12 @@ export default {
     computed: {
         isMapping() {
             return this.data.type == "field_map";
+        },
+        isHiding() {
+            return this.data.type == "field_hide";
+        },
+        isDeleting() {
+            return this.data.type == "field_delete";
         }
     }
 }

@@ -13,6 +13,7 @@
             :disabled="disabled"
             :value="value"
             :type="type"
+            :placeholder="placeholder"
             @change="onChange"
         />
     </template>
@@ -20,7 +21,7 @@
 <script>
 export default {
     name: "Input",
-    props: ['class', 'size', 'type', 'disabled', 'value', 'textfield', 'keyID', 'validate'],
+    props: ['class', 'size', 'type', 'disabled', 'value', 'textfield', 'keyID', 'validate', 'placeholder'],
     emits: ['onChange'],
     methods: {
         onChange(e) {
@@ -39,7 +40,7 @@ export default {
     },
     computed: {
         isTextField() {
-            return this.textfield != undefined;
+            return this.textfield;
         },
         classnames() {
             const size = this.size == undefined ? 'xs' : this.size;
