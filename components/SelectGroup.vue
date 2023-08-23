@@ -20,6 +20,7 @@ export default {
     name: "SelectGroup",
     components: { Select },
     props: ["label", "size", "class", "type", "disabled", "value", "options", "keyID", "validate"],
+    emits: ["onChange"],
     computed: {
         hasLabel() {
             return this.label !== undefined;

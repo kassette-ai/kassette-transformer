@@ -40,7 +40,7 @@ export default {
     },
     computed: {
         isTextField() {
-            return this.textfield != undefined;
+            return this.textfield;
         },
         classnames() {
             const size = this.size == undefined ? 'xs' : this.size;

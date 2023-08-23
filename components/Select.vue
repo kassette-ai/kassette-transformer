@@ -22,7 +22,7 @@ export default {
     computed: {
         classnames() {
             const size = this.size == undefined ? 'xs' : this.size;
-            const baseclass = this.validate ? 'border border-[#3F3F3D] text-[#3F3F3D]' : 'border border-red-500';
+            const baseclass = (this.validate === false) ? 'border border-red-500' : 'border border-[#3F3F3D] text-[#3F3F3D]';
             let sizeclass;
             if (size == 'xs') {
                 sizeclass = 'p-2 text-xs rounded-xs tracking-normal';
