@@ -19,7 +19,7 @@ import Input from "@/components/Input.vue";
 export default {
     name: "InputGroup",
     props: ["label", "size", "class", "type", "disabled", "value", "textfield", "keyID", "validate"],
-    emit: ["onChange"],
+    emits: ["onChange"],
     components: { Input },
     methods: {
         onChange(keyID, value) {

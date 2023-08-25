@@ -27,6 +27,21 @@
                 />
             </template>
         </template>
+        <template v-for="field of formFields">
+            <template v-if="field.type == 'schema'">
+                <div class="w-full px-8">
+                    <SchemaRegistration
+                        size="lg"
+                        class="p-8"
+                        :label="field.name"
+                        :keyID="field.keyID"
+                        :value="value[field.keyID]"
+                        :validate="validate[field.keyID]"
+                        @onChange="handleValueChange"
+                    />
+                </div>
+            </template>
+        </template>
         <template v-if="formFields.length == 0">
             <p class="text-xl">No options to set.</p>
         </template>
@@ -42,9 +57,10 @@
 import InputGroup from '@/components/InputGroup.vue';
 import SelectGroup from '@/components/SelectGroup.vue';
 import Button from "@/components/Button.vue";
+import SchemaRegistration from '@/components/Schema/SchemaRegistration.vue';
 export default {
     name: "SettingScreen",
-    components: { InputGroup, SelectGroup, Button},
+    components: { InputGroup, SelectGroup, Button, SchemaRegistration},
     props: ["destination", "catalogue"],
     emits: ["onChange", "onNext"],
     data() {
@@ -78,6 +94,7 @@ export default {
     },
     methods: {
         handleValueChange(keyID, value) {
+            console.log(keyID, value);
             this.value[keyID] = value;
             this.$emit("onChange", JSON.stringify(this.value));
         },
@@ -130,6 +147,9 @@ export default {
             if (configValue == undefined) {
                 if (field.type == 'json') {
                     this.value[field.keyID] = "{}"
+                }
+                else if(field.type == 'schema') {
+                    this.value[field.keyID] = JSON.stringify({'table_name': '', 'schema_fields': []});
                 }
                 else {
                     this.value[field.keyID] = "";
