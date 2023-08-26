@@ -134,10 +134,7 @@ export default {
         },
         findOptionName(val, options) {
             for (let i = 0 ; i < options.length ; i ++) {
-                let typeTransformed = val;
-                if (typeof(options[i].value) == 'boolean')
-                    typeTransformed = (val == "true");
-                if (options[i].value == typeTransformed)
+                if (options[i].value == val)
                     return options[i].name;
             }
             return "";
