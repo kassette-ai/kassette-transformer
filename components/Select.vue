@@ -41,7 +41,7 @@ export default {
             let value = e.target.value;
             if (value == "true") {
                 value = true;
-            } else {
+            } else if (value == "false") {
                 value = false;
             }
             this.$emit("onChange", this.keyID, value);

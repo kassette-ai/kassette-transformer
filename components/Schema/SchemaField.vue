@@ -5,8 +5,9 @@
                 <Input
                     size="md"
                     class="w-full"
-                    :value="data.name"
                     keyID="name"
+                    :value="data.name"
+                    :validate="validate.name"
                     @onChange="handleValueChange"
                 />
             </template>
@@ -22,6 +23,7 @@
                         :value="data.type"
                         keyID="type"
                         :options="typeOptions"
+                        :validate="validate.type"
                         @onChange="handleValueChange"
                     />
                 </template>
@@ -111,6 +113,7 @@ export default {
                     "value": false,
                 },
             ],
+            validate: {},
         }
     },
     computed: {
@@ -125,9 +128,28 @@ export default {
             this.$emit("onChange", newData)
         },
         changeEditMode(mode) {
-            let newData = this.data;
-            newData['mode'] = mode;
-            this.$emit("onChange", newData);
+            let validated = true;
+            if (mode == 'view') {
+                if (this.data.name.length == 0) {
+                    this.validate.name = false;
+                    validated = false;
+                }
+                else {
+                    this.validate.name = true;
+                }
+                if (this.data.type.length == 0) {
+                    this.validate.type = false;
+                    validate = false;
+                }
+                else {
+                    this.validate.type = true;
+                }
+            }
+            if (validated) {
+                let newData = this.data;
+                newData['mode'] = mode;
+                this.$emit("onChange", newData);
+            }
         },
         deleteField() {
             this.$emit("onDelete")

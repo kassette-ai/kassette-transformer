@@ -133,6 +133,17 @@ export default {
                         passed = false;
                     }
                 }
+                else if (type == 'schema') {
+                    this.validate[keyID] = {}
+                    let jsonVal = JSON.parse(val);
+                    if (jsonVal.table_name.length > 0) {
+                        this.validate[keyID]['table_name'] = true;
+                    }
+                    else {
+                        this.validate[keyID]['table_name'] = false;
+                        passed = false;
+                    }
+                }
             }
             if (passed) {
                 this.$emit("onNext");
