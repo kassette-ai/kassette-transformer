@@ -156,14 +156,18 @@ export default {
         for (const field of formFields) {
             const configValue = configData[field.keyID];
             if (configValue == undefined) {
-                if (field.type == 'json') {
-                    this.value[field.keyID] = "{}"
-                }
-                else if(field.type == 'schema') {
-                    this.value[field.keyID] = JSON.stringify({'table_name': '', 'schema_fields': []});
-                }
-                else {
-                    this.value[field.keyID] = "";
+                if (field.defaultValue == undefined) {
+                    if (field.type == 'json') {
+                        this.value[field.keyID] = "{}"
+                    }
+                    else if(field.type == 'schema') {
+                        this.value[field.keyID] = JSON.stringify({'table_name': '', 'schema_fields': []});
+                    }
+                    else {
+                        this.value[field.keyID] = "";
+                    }
+                } else {
+                    this.value[field.keyID] = field.defaultValue;
                 }
             } else {
                 this.value[field.keyID] = configValue;
