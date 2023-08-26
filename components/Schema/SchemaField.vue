@@ -102,6 +102,10 @@ export default {
                     "name": "boolean",
                     "value": "BOOLEAN",
                 },
+                {
+                    "name": "timestamp",
+                    "value": "TIMESTAMP",
+                },
             ],
             boolOptions: [
                 {
