@@ -169,6 +169,7 @@ export default {
                 } else {
                     this.value[field.keyID] = field.defaultValue;
                 }
+                this.handleValueChange(field.keyID, this.value[field.keyID])
             } else {
                 this.value[field.keyID] = configValue;
             }

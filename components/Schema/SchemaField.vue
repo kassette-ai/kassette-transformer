@@ -87,6 +87,14 @@ export default {
                     "value": "INT",
                 },
                 {
+                    "name": "serial",
+                    "value": "SERIAL",
+                },
+                {
+                    "name": "big serial",
+                    "value": "BIGSERIAL",
+                },
+                {
                     "name": "text",
                     "value": "TEXT",
                 },
