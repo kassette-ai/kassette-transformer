@@ -38,7 +38,13 @@ export default {
     },
     methods: {
         onChange(e) {
-            this.$emit("onChange", this.keyID, e.target.value);
+            let value = e.target.value;
+            if (value == "true") {
+                value = true;
+            } else if (value == "false") {
+                value = false;
+            }
+            this.$emit("onChange", this.keyID, value);
         }
     }
 }
