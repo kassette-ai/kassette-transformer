@@ -87,8 +87,16 @@ export default {
                     "value": "INT",
                 },
                 {
+                    "name": "float",
+                    "value": "FLOAT",
+                },
+                {
                     "name": "serial",
                     "value": "SERIAL",
+                },
+                {
+                    "name": "number",
+                    "value": "NUMBER",
                 },
                 {
                     "name": "big serial",
@@ -113,6 +121,10 @@ export default {
                 {
                     "name": "timestamp",
                     "value": "TIMESTAMP",
+                },
+                {
+                    "name": "date",
+                    "value": "DATE",
                 },
             ],
             boolOptions: [
