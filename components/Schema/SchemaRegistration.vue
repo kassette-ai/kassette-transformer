@@ -3,6 +3,7 @@
     <div :class="classnames">
         <div class="flex flex-col">
             <InputGroup
+                v-if="isDBSchema"
                 :size="size"
                 :value="schema.table_name"
                 keyID="table_name"
@@ -14,8 +15,10 @@
             <template v-for="(field, idx) of schema.schema_fields" :key="idx">
                 <div class="w-full mb-4">
                     <SchemaField
+                        :typeOptions="fieldOptions"
                         :data="field"
                         :keyID="idx"
+                        :isDBSchema="isDBSchema"
                         @onChange="onFieldChange"
                         @onDelete="() => handleDeleteField(idx)"
                     />
@@ -42,7 +45,7 @@ import SchemaField from "./SchemaField.vue";
 export default {
     name: "SchemaRegistration",
     components: { InputGroup, Button, SchemaField },
-    props: ["size", "class", "label", "keyID", "value", "validate"],
+    props: ["size", "class", "label", "keyID", "value", "validate", "fieldOptions", "isDBSchema"],
     $emits: ["onChange"],
     computed: {
         schema() {
@@ -95,12 +98,20 @@ export default {
         },
         addNewSchemaField() {
             let newSchema = this.schema;
-            newSchema.schema_fields.push({
-                "name": "",
-                "type": "",
-                "mode": "edit",
-                "primary_key": false,
-            });
+            if (this.isDBSchema) {
+                newSchema.schema_fields.push({
+                    "name": "",
+                    "type": "",
+                    "mode": "edit",
+                    "primary_key": false,
+                });
+            } else {
+                newSchema.schema_fields.push({
+                    "name": "",
+                    "type": "",
+                    "mode": "edit",
+                })
+            }
             this.$emit("onChange", this.keyID, JSON.stringify(newSchema));
         }
     },

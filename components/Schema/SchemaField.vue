@@ -32,17 +32,19 @@
                 </template>
             </div>
             <div class="w-2/5 flex justify-center">
-                <template v-if="isEditMode">
-                    <Select
-                        size="md"
-                        :value="data.primary_key"
-                        keyID="primary_key"
-                        :options="boolOptions"
-                        @onChange="handleValueChange"
-                    />
-                </template>
-                <template v-else>
-                    <p class="text-[#3F3F3D] mb-4 text-md tracking-wider">{{ findOptionName(data.primary_key, boolOptions) }}</p>
+                <template v-if="isDBSchema">
+                    <template v-if="isEditMode">
+                        <Select
+                            size="md"
+                            :value="data.primary_key"
+                            keyID="primary_key"
+                            :options="boolOptions"
+                            @onChange="handleValueChange"
+                        />
+                    </template>
+                    <template v-else>
+                        <p class="text-[#3F3F3D] mb-4 text-md tracking-wider">{{ findOptionName(data.primary_key, boolOptions) }}</p>
+                    </template>
                 </template>
             </div>
             <div class="w-1/5 flex justify-end">
@@ -77,56 +79,10 @@ import Button from "@/components/Button.vue";
 export default {
     name: "SchemaField",
     components: { Input, Select },
-    props: ["data", "keyID"],
+    props: ["data", "keyID", "typeOptions", "isDBSchema"],
     emits: ["onChange", "onDelete"],
     data() {
         return {
-            typeOptions: [
-                {
-                    "name": "int",
-                    "value": "INT",
-                },
-                {
-                    "name": "float",
-                    "value": "FLOAT",
-                },
-                {
-                    "name": "serial",
-                    "value": "SERIAL",
-                },
-                {
-                    "name": "number",
-                    "value": "NUMBER",
-                },
-                {
-                    "name": "big serial",
-                    "value": "BIGSERIAL",
-                },
-                {
-                    "name": "text",
-                    "value": "TEXT",
-                },
-                {
-                    "name": "varchar",
-                    "value": "VARCHAR",
-                },
-                {
-                    "name": "jsonb",
-                    "value": "JSONB",
-                },
-                {
-                    "name": "boolean",
-                    "value": "BOOLEAN",
-                },
-                {
-                    "name": "timestamp",
-                    "value": "TIMESTAMP",
-                },
-                {
-                    "name": "date",
-                    "value": "DATE",
-                },
-            ],
             boolOptions: [
                 {
                     "name": "yes",
@@ -185,7 +141,7 @@ export default {
             }
             return "";
         }
-    }
+    },
 }
 </script>
 <style scoped>
