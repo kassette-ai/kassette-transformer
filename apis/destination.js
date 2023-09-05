@@ -30,10 +30,18 @@ const DeleteDestinationByID = async(destinationID) => {
         .catch((err) => {throw err;});
 }
 
+const GetFieldOptions = async(destCataName) => {
+    const urlParams = new URLSearchParams({type: 'destination', name: destCataName});
+    return Axios.get(`/field-options?${urlParams.toString()}`)
+        .then((res) => res.data)
+        .catch((err) => {throw err;});
+}
+
 export {
     CreateNewDestination,
     ModifyDestination,
     FetchAllDestinations,
     GetDestinationDetailByID,
     DeleteDestinationByID,
+    GetFieldOptions,
 }

@@ -30,10 +30,18 @@ const DeleteSourceByID = async(sourceID) => {
         .catch((err) => {throw err;});
 }
 
+const GetFieldOptions = async(destCataName) => {
+    const urlParams = new URLSearchParams({type: 'source', name: destCataName});
+    return Axios.get(`/field-options?${urlParams.toString()}`)
+        .then((res) => res.data)
+        .catch((err) => {throw err;});
+}
+
 export {
     CreateNewSource,
     ModifySource,
     FetchAllSources,
     GetSourceDetailByID,
     DeleteSourceByID,
+    GetFieldOptions,
 }

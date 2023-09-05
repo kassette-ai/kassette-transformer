@@ -33,6 +33,8 @@
                     <SchemaRegistration
                         size="lg"
                         class="p-8"
+                        :fieldOptions="fieldOptions"
+                        :isDBSchema="isDBSchema"
                         :label="field.name"
                         :keyID="field.keyID"
                         :value="value[field.keyID]"
@@ -58,6 +60,7 @@ import InputGroup from '@/components/InputGroup.vue';
 import SelectGroup from '@/components/SelectGroup.vue';
 import Button from "@/components/Button.vue";
 import SchemaRegistration from '@/components/Schema/SchemaRegistration.vue';
+import { GetFieldOptions } from "@/apis/destination";
 export default {
     name: "SettingScreen",
     components: { InputGroup, SelectGroup, Button, SchemaRegistration},
@@ -65,6 +68,7 @@ export default {
     emits: ["onChange", "onNext"],
     data() {
         return {
+            fieldOptions: [],
             formFields: [],
             value: {},
             validate: {},
@@ -92,9 +96,13 @@ export default {
             ]
         }
     },
+    computed: {
+        isDBSchema() {
+            return this.catalogue.access == "DBPolling";
+        }
+    },
     methods: {
         handleValueChange(keyID, value) {
-            console.log(keyID, value);
             this.value[keyID] = value;
             this.$emit("onChange", JSON.stringify(this.value));
         },
@@ -133,7 +141,7 @@ export default {
                         passed = false;
                     }
                 }
-                else if (type == 'schema') {
+                else if (type == 'schema' && this.isDBSchema) {
                     this.validate[keyID] = {}
                     let jsonVal = JSON.parse(val);
                     if (jsonVal.table_name.length > 0) {
@@ -150,7 +158,7 @@ export default {
             }
         }
     },
-    created() {
+    async created() {
         const formFields = JSON.parse(this.catalogue.metadata);
         const configData = JSON.parse(this.destination.config);
         for (const field of formFields) {
@@ -176,6 +184,11 @@ export default {
             this.validate[field.keyID] = "";
         }
         this.formFields = formFields;
+        const options = await GetFieldOptions(this.catalogue.name);
+        this.fieldOptions = []
+        for (const key in options) {
+            this.fieldOptions.push({value: key, name: key});
+        }
     }
 }
 </script>
