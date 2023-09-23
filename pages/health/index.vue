@@ -27,14 +27,9 @@
           </div>
         </div>
         <div class="health-table-body">
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
-          <HealthPageItem />
+          <template v-for="job of failedJobs">
+            <HealthPageItem :data="job"/>
+          </template>
         </div>
       </div>
     </template>
@@ -42,9 +37,22 @@
 </template>
 <script>
 import HealthPageItem from "@/components/HealthPage/Item.vue"
+import { GetServerHealth } from "@/apis/health"
 export default {
   name: "health",
   components: {HealthPageItem},
+  data() {
+    return {
+      failedJobs: [],
+      refreshIntervalMS: 5 * 60 * 1000,
+    }
+  },
+  async created() {
+    this.failedJobs = await GetServerHealth()
+    setInterval(async () => {
+      this.failedJobs = await GetServerHealth()
+    }, this.refreshIntervalMS);
+  }
 }
 </script>
 <style scoped>
@@ -52,6 +60,6 @@ export default {
   @apply flex flex-row mb-4
 }
 .health-table-header div {
-  @apply text-lg font-bold
+  @apply text-lg font-bold text-center
 }
 </style>
