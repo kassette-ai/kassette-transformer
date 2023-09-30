@@ -27,8 +27,8 @@ jobs:
     - name: configure backend for production
       run: echo "VITE_APP_BACKEND_BASE=http://localhost:8088" > .env
     - name: Build docker image for kassete-transformer
-      run:  docker build . --file Dockerfile --tag ${{ env.UI_IMAGE_NAME }}:dev${{ env.DOCKER_TAG }}
+      run:  docker build . --file Dockerfile --tag ${{ env.UI_IMAGE_NAME }}:dev_${{ env.DOCKER_TAG }}
     - name: docker login
       run: docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
     - name: docker push agent
-      run: docker push ${{ env.UI_IMAGE_NAME }}:dev${{ env.DOCKER_TAG }}
+      run: docker push ${{ env.UI_IMAGE_NAME }}:dev_${{ env.DOCKER_TAG }}
